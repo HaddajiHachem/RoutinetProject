@@ -1,0 +1,70 @@
+{% extends 'e_learning/base.html' %}
+{% block title %}{{ action }} un évènement - Routinet{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h3 class="mb-4">{{ action }} un évènement</h3>
+
+          <form method="post">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="mb-3">
+              <label class="form-label" for="id_cours">Cours</label>
+              {{ form.cours }}
+              {% if form.cours.errors %}<div class="text-danger small">{{ form.cours.errors }}</div>{% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="id_titre">Titre</label>
+              {{ form.titre }}
+              {% if form.titre.errors %}<div class="text-danger small">{{ form.titre.errors }}</div>{% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="id_description">Description</label>
+              {{ form.description }}
+              {% if form.description.errors %}<div class="text-danger small">{{ form.description.errors }}</div>{% endif %}
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label" for="id_type">Type</label>
+                {{ form.type }}
+                {% if form.type.errors %}<div class="text-danger small">{{ form.type.errors }}</div>{% endif %}
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="id_date_debut">Date début</label>
+                {{ form.date_debut }}
+                {% if form.date_debut.errors %}<div class="text-danger small">{{ form.date_debut.errors }}</div>{% endif %}
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="id_date_fin">Date fin</label>
+                {{ form.date_fin }}
+                {% if form.date_fin.errors %}<div class="text-danger small">{{ form.date_fin.errors }}</div>{% endif %}
+              </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+              <label class="form-label" for="id_lieu">Lieu</label>
+              {{ form.lieu }}
+              {% if form.lieu.errors %}<div class="text-danger small">{{ form.lieu.errors }}</div>{% endif %}
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <a href="{% url 'e_learning:evenements_admin' %}" class="btn btn-secondary">Annuler</a>
+              <button type="submit" class="btn btn-primary">{{ action }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

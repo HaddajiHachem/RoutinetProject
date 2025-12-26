@@ -1,0 +1,452 @@
+/* Modales */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-medium);
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: var(--dark-color);
+}
+
+/* Formulaires d'authentification */
+.auth-form {
+    margin-bottom: 20px;
+}
+
+.auth-form .form-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 38px;
+    cursor: pointer;
+    color: var(--gray-medium);
+}
+
+.password-strength {
+    margin-top: 8px;
+}
+
+.strength-bar {
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.strength-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 20%;
+    background: var(--danger-color);
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    color: var(--gray-medium);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-container input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 3px;
+    margin-right: 8px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.checkbox-container input:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-container input:checked + .checkmark::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.auth-divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e9ecef;
+}
+
+.auth-divider span {
+    background: white;
+    padding: 0 15px;
+    color: var(--gray-medium);
+    font-size: 0.9rem;
+}
+
+.social-auth {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn-social {
+    flex: 1;
+    border: 1px solid #ddd;
+    background: white;
+    color: var(--dark-color);
+}
+
+.btn-social:hover {
+    background: #f8f9fa;
+}
+
+.btn-google:hover {
+    border-color: #db4437;
+    color: #db4437;
+}
+
+.btn-facebook:hover {
+    border-color: #4267B2;
+    color: #4267B2;
+}
+
+.auth-switch {
+    text-align: center;
+}
+
+.auth-switch a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+.modal.hidden {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+/* Correction pour la fermeture des modales */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Empêcher le débordement du body */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Z-index pour s'assurer que les modales sont au-dessus */
+.modal {
+    z-index: 10000;
+}
+
+.modal-content {
+    z-index: 10001;
+}
+
+/* Styles pour les erreurs */
+.field-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
+}
+
+.form-group input.error {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1);
+}
+
+/* Animation */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+/* Sélection de rôle */
+.role-selection {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.role-option {
+    flex: 1;
+    min-width: 120px;
+}
+
+.role-option input[type="radio"] {
+    display: none;
+}
+
+.role-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: white;
+}
+
+.role-label i {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: var(--gray-medium);
+}
+
+.role-label:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.role-option input[type="radio"]:checked + .role-label {
+    border-color: var(--primary-color);
+    background-color: rgba(79, 70, 229, 0.05);
+}
+
+.role-option input[type="radio"]:checked + .role-label i {
+    color: var(--primary-color);
+}
+
+/* Responsive pour la sélection de rôle */
+@media (max-width: 480px) {
+    .role-selection {
+        flex-direction: column;
+    }
+    
+    .role-option {
+        min-width: auto;
+    }
+}
+/* Validation visuelle pour les champs requis */
+.required-field {
+    border-left: 4px solid #e74c3c !important;
+    background-color: rgba(231, 76, 60, 0.05) !important;
+}
+
+.required-field .form-group label::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* Messages de validation client */
+.client-validation {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    color: #721c24;
+    font-size: 0.85rem;
+}
+
+/* Style pour le code enseignant */
+#id_teacher_code {
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* Indicateur de statut */
+.code-status {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.code-valid {
+    color: #27ae60;
+}
+
+.code-invalid {
+    color: #e74c3c;
+}
+
+/* Bouton désactivé */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn:disabled:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}

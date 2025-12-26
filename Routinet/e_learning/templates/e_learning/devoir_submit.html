@@ -1,0 +1,144 @@
+{% extends 'e_learning/base.html' %}
+
+{% block title %}Soumettre un devoir - Routinet{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'e_learning:cours_detail' devoir.cours.pk %}">{{ devoir.cours.titre }}</a></li>
+                    <li class="breadcrumb-item active">{{ devoir.titre }}</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-tasks"></i> {{ devoir.titre }}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>Description</h5>
+                        <p>{{ devoir.description|linebreaks }}</p>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="alert {% if devoir.est_en_retard %}alert-danger{% else %}alert-info{% endif %}">
+                                <i class="fas fa-calendar"></i> 
+                                <strong>Date limite:</strong> {{ devoir.date_limite|date:"d/m/Y à H:i" }}
+                                {% if devoir.est_en_retard %}
+                                    <br><span class="badge bg-danger mt-2">Devoir expiré</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <i class="fas fa-star"></i> 
+                                <strong>Note maximale:</strong> {{ devoir.note_max }} points
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if devoir.fichier_devoir %}
+                        <div class="alert alert-light">
+                            <i class="fas fa-file-download"></i> 
+                            <a href="{{ devoir.fichier_devoir.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                Télécharger le fichier du devoir
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if soumission_existante %}
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i> 
+                    <strong>Vous avez déjà soumis ce devoir</strong>
+                    <br>Date de soumission: {{ soumission_existante.date_depot|date:"d/m/Y à H:i" }}
+                    {% if soumission_existante.note %}
+                        <br>Note: {{ soumission_existante.note }}/{{ devoir.note_max }}
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        {% if soumission_existante %}
+                            <i class="fas fa-redo"></i> Modifier ma soumission
+                        {% else %}
+                            <i class="fas fa-upload"></i> Soumettre mon devoir
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if devoir.est_en_retard %}
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Attention:</strong> La date limite est dépassée. Votre soumission sera marquée comme en retard.
+                        </div>
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.fichier_soumission.id_for_label }}" class="form-label">
+                                <i class="fas fa-file-upload"></i> Fichier à soumettre *
+                            </label>
+                            {{ form.fichier_soumission }}
+                            {% if soumission_existante.fichier_soumission %}
+                                <div class="mt-2">
+                                    <small class="text-muted">
+                                        Fichier actuel: 
+                                        <a href="{{ soumission_existante.fichier_soumission.url }}" target="_blank">
+                                            {{ soumission_existante.fichier_soumission.name }}
+                                        </a>
+                                    </small>
+                                </div>
+                            {% endif %}
+                            {% if form.fichier_soumission.errors %}
+                                <div class="text-danger small">{{ form.fichier_soumission.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.commentaire.id_for_label }}" class="form-label">
+                                <i class="fas fa-comment"></i> Commentaire (optionnel)
+                            </label>
+                            {{ form.commentaire }}
+                            {% if form.commentaire.errors %}
+                                <div class="text-danger small">{{ form.commentaire.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        {% if soumission_existante and soumission_existante.note %}
+                            <div class="alert alert-info">
+                                <h6><i class="fas fa-star"></i> Note et feedback de l'enseignant</h6>
+                                <p class="mb-1"><strong>Note:</strong> {{ soumission_existante.note }}/{{ devoir.note_max }}</p>
+                                {% if soumission_existante.commentaire_enseignant %}
+                                    <p class="mb-0"><strong>Commentaire:</strong> {{ soumission_existante.commentaire_enseignant }}</p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        <hr>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'e_learning:cours_detail' devoir.cours.pk %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Retour au cours
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check"></i> 
+                                {% if soumission_existante %}Mettre à jour{% else %}Soumettre{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

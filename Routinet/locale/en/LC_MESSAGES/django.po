@@ -1,0 +1,194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Routinet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-13 00:00+0000\n"
+"PO-Revision-Date: 2025-11-13 14:39+0100\n"
+"Last-Translator: Auto <auto@example.com>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+msgid "Accueil"
+msgstr "Home"
+
+msgid "Cours"
+msgstr "Courses"
+
+msgid "Nos Offres"
+msgstr "Plans"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Mes Cours"
+msgstr "My Courses"
+
+msgid "Mes Devoirs"
+msgstr "My Assignments"
+
+msgid "Évènements"
+msgstr "Events"
+
+msgid "Bienvenue sur Routinet"
+msgstr "Welcome to Routinet"
+
+msgid "Votre plateforme d'apprentissage en ligne. Apprenez à votre rythme, où que vous soyez."
+msgstr "Your online learning platform. Learn at your own pace, wherever you are."
+
+msgid "Commencer"
+msgstr "Get started"
+
+msgid "Explorer les cours"
+msgstr "Explore courses"
+
+msgid "Découvrir"
+msgstr "Discover"
+
+msgid "Contactez-nous"
+msgstr "Contact us"
+
+msgid "Une question, une suggestion ? Envoyez-nous un message."
+msgstr "Have a question or suggestion? Send us a message."
+
+msgid "Nom et prénom"
+msgstr "Full name"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Sujet"
+msgstr "Subject"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Votre message..."
+msgstr "Your message..."
+
+msgid "Envoyer"
+msgstr "Send"
+
+msgid "Les cours auxquels vous êtes inscrit"
+msgstr "Courses you are enrolled in"
+
+msgid "Accéder au cours"
+msgstr "Go to course"
+
+msgid "Inscrit"
+msgstr "Enrolled"
+
+msgid "Voulez-vous vraiment vous désinscrire ?"
+msgstr "Do you really want to unenroll?"
+
+msgid "Se désinscrire"
+msgstr "Unenroll"
+
+msgid "Aucun cours"
+msgstr "No courses"
+
+msgid "Vous n'êtes inscrit à aucun cours pour le moment"
+msgstr "You are not enrolled in any courses yet"
+
+msgid "Mes devoirs"
+msgstr "My assignments"
+
+msgid "Enseignant"
+msgstr "Teacher"
+
+msgid "Étudiant"
+msgstr "Student"
+
+msgid "Cours:"
+msgstr "Course:"
+
+msgid "Module:"
+msgstr "Module:"
+
+msgid "Date limite dépassée:"
+msgstr "Deadline passed:"
+
+msgid "Date limite:"
+msgstr "Deadline:"
+
+msgid "Soumis"
+msgstr "Submitted"
+
+msgid "Soumettre"
+msgstr "Submit"
+
+msgid "Voir dans le cours"
+msgstr "View in course"
+
+msgid "Aucun devoir à afficher"
+msgstr "No assignments to display"
+
+msgid "Mes cours (Enseignant)"
+msgstr "My courses (Teacher)"
+
+msgid "Nouveau cours"
+msgstr "New course"
+
+msgid "Créé le"
+msgstr "Created on"
+
+msgid "Voir"
+msgstr "View"
+
+msgid "Modifier"
+msgstr "Edit"
+
+msgid "Supprimer"
+msgstr "Delete"
+
+msgid "Vous n'avez pas encore de cours."
+msgstr "You don't have any courses yet."
+
+msgid "Créer un cours"
+msgstr "Create a course"
+
+msgid "Inscription"
+msgstr "Sign up"
+
+msgid "Nom d'utilisateur"
+msgstr "Username"
+
+msgid "Prénom"
+msgstr "First name"
+
+msgid "Nom"
+msgstr "Last name"
+
+msgid "Je suis"
+msgstr "I am"
+
+msgid "Administrateur"
+msgstr "Administrator"
+
+msgid "Code d'authentification (enseignant/administrateur)"
+msgstr "Authentication code (teacher/administrator)"
+
+msgid "Mot de passe"
+msgstr "Password"
+
+msgid "Confirmer mot de passe"
+msgstr "Confirm password"
+
+msgid "J'accepte les conditions d'utilisation"
+msgstr "I accept the terms of use"
+
+msgid "S'inscrire"
+msgstr "Register"
+
+msgid "Inscrivez-vous avec"
+msgstr "Sign up with"
+
+msgid "Vous avez déjà un compte?"
+msgstr "Already have an account?"
+
+msgid "Se connecter"
+msgstr "Log in"

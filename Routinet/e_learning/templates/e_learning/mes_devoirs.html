@@ -1,0 +1,70 @@
+{% extends 'e_learning/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Mes Devoirs" %} - Routinet{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">{% trans "Mes devoirs" %}</h2>
+    {% if mode == 'enseignant' %}
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-primary">{% trans "Enseignant" %}</span>
+        <a href="{% url 'e_learning:devoir_create_global' %}" class="btn btn-sm btn-primary">
+          <i class="fas fa-plus me-1"></i> {% trans "Créer un devoir" %}
+        </a>
+      </div>
+    {% elif mode == 'etudiant' %}
+      <span class="badge bg-success">{% trans "Étudiant" %}</span>
+    {% endif %}
+  </div>
+
+  {% if devoirs %}
+    <div class="row">
+      {% for d in devoirs %}
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mb-1">{{ d.titre }}</h5>
+              <p class="text-muted mb-2">{% trans "Cours:" %} {{ d.cours.titre }}</p>
+              {% if d.module %}
+                <p class="text-muted mb-2">{% trans "Module:" %} {{ d.module.titre }}</p>
+              {% endif %}
+              <p class="mb-3">{{ d.description|truncatewords:20 }}</p>
+              <div class="mt-auto">
+                <small class="d-block mb-2">
+                  <i class="fas fa-clock"></i>
+                  {% if d.est_en_retard %}
+                    <span class="text-danger">{% trans "Date limite dépassée:" %} {{ d.date_limite|date:"d/m/Y H:i" }}</span>
+                  {% else %}
+                    {% trans "Date limite:" %} {{ d.date_limite|date:"d/m/Y H:i" }}
+                  {% endif %}
+                </small>
+                {% if mode == 'etudiant' %}
+                  {% if soumissions_ids and d.id in soumissions_ids %}
+                    <span class="badge bg-info">{% trans "Soumis" %}</span>
+                  {% else %}
+                    <a href="{% url 'e_learning:devoir_submit' d.pk %}" class="btn btn-sm btn-primary w-100">{% trans "Soumettre" %}</a>
+                  {% endif %}
+                {% else %}
+                  <a href="{% url 'e_learning:cours_detail' d.cours.pk %}#devoir-{{ d.pk }}" class="btn btn-sm btn-outline-primary w-100">{% trans "Voir dans le cours" %}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-center py-5">
+      <i class="fas fa-tasks fa-3x text-muted mb-3"></i>
+      <h5 class="text-muted">{% trans "Aucun devoir à afficher" %}</h5>
+      {% if mode == 'enseignant' %}
+        <p class="mt-3">
+          <a href="{% url 'e_learning:devoir_create_global' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i> {% trans "Créer un devoir" %}
+          </a>
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

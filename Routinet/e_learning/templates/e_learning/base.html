@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}" dir="{% if LANGUAGE_CODE|slice:':2' == 'ar' %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routinet</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    {% load static %}
+    <!-- Favicon / App Icons -->
+    <link rel="icon" type="image/png" href="{% static 'images/logo_routinet.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/logo_routinet.png' %}">
+    <meta name="theme-color" content="#2563eb">
+    {% load i18n %}
+    {% load notifications_tags %}
+    <link rel="stylesheet" href="{% static 'e_learning/css/style.css' %}?v=20251113">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'e_learning:index' %}">
+                <img src="{% static 'images/logo_routinet.png' %}" alt="Routinet" height="32" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'e_learning:index' %}"><i class="fas fa-home me-1"></i> {% trans "Accueil" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'e_learning:cours_list' %}"><i class="fas fa-book me-1"></i> {% trans "Cours" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'e_learning:offres' %}"><i class="fas fa-gem me-1"></i> {% trans "Nos Offres" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'e_learning:contact' %}"><i class="fas fa-envelope me-1"></i> {% trans "Contact" %}</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'e_learning:mes_cours' %}"><i class="fas fa-book-open me-1"></i> {% trans "Mes Cours" %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'e_learning:mes_devoirs' %}"><i class="fas fa-tasks me-1"></i> {% trans "Mes Devoirs" %}</a>
+                        </li>
+                        {% if user.profile.role == 'admin' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'e_learning:evenements_admin' %}"><i class="fas fa-calendar-alt me-1"></i> {% trans "Évènements" %}</a>
+                        </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        {% unread_notifications_count user as unread_count %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-bell"></i>
+                                {% if unread_count > 0 %}
+                                    <span class="badge bg-danger">{{ unread_count }}</span>
+                                {% endif %}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'e_learning:notifications' %}">Voir toutes les notifications</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'e_learning:messagerie' %}">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                {% if user.profile.photo_profil %}
+                                    <img src="{{ user.profile.photo_profil.url }}" class="avatar-sm me-2" alt="">
+                                {% else %}
+                                    <img src="{% static 'e_learning/img/avatar-default.svg' %}" class="avatar-sm me-2" alt="">
+                                {% endif %}
+                                <span>{{ user.get_full_name|default:user.username }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'comptes:profil' %}"><i class="fas fa-user-circle"></i> Mon Profil</a></li>
+                                {% if user.profile.role == 'enseignant' %}
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'e_learning:cours_create' %}"><i class="fas fa-plus"></i> Créer un cours</a></li>
+                                {% endif %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'comptes:deconnexion' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'comptes:connexion' %}">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-light text-primary ms-2" href="{% url 'comptes:inscription' %}">Inscription</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <form id="language-form" class="d-flex align-items-center gap-2 ms-3" action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                    <select id="language-select" name="language" class="form-select form-select-sm" onchange="this.form.submit()">
+                        <option value="fr" {% if LANGUAGE_CODE|slice:':2' == 'fr' %}selected{% endif %}>Français</option>
+                        <option value="en" {% if LANGUAGE_CODE|slice:':2' == 'en' %}selected{% endif %}>English</option>
+                        <option value="ar" {% if LANGUAGE_CODE|slice:':2' == 'ar' %}selected{% endif %}>العربية</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Content with optional left sidebar (single content block) -->
+    <main class="py-4">
+        <div class="container-fluid">
+            <div class="row gx-4">
+                <aside class="col-lg-3 col-xl-2 d-none d-lg-block">
+                    {% if user.is_authenticated %}
+                    <div class="sidebar card shadow-sm sticky-top" style="top: 84px;">
+                        <div class="card-body text-center">
+                            {% load static %}
+                            {% if user.profile.photo_profil %}
+                                <img src="{{ user.profile.photo_profil.url }}" class="rounded-circle mb-3" width="80" height="80" style="object-fit: cover;" alt="Avatar">
+                            {% else %}
+                                <img src="{% static 'e_learning/img/avatar-default.svg' %}" class="rounded-circle mb-3" width="80" height="80" alt="Avatar">
+                            {% endif %}
+                            <div class="fw-semibold">{{ user.get_full_name|default:user.username }}</div>
+                            <div class="text-muted small mb-3"><span class="badge bg-light text-dark">{{ user.profile.role|title }}</span></div>
+                            <div class="list-group list-group-flush text-start">
+                                <a class="list-group-item list-group-item-action" href="{% url 'e_learning:mes_cours' %}"><i class="fas fa-book-open me-2"></i>Mes cours</a>
+                                <a class="list-group-item list-group-item-action" href="{% url 'e_learning:mes_devoirs' %}"><i class="fas fa-tasks me-2"></i>Mes devoirs</a>
+                                <a class="list-group-item list-group-item-action" href="{% url 'e_learning:messagerie' %}"><i class="fas fa-envelope me-2"></i>Messagerie</a>
+                                <a class="list-group-item list-group-item-action" href="{% url 'e_learning:notifications' %}"><i class="fas fa-bell me-2"></i>Notifications</a>
+                                {% if user.profile.role == 'enseignant' %}
+                                    <a class="list-group-item list-group-item-action" href="{% url 'e_learning:cours_create' %}"><i class="fas fa-plus me-2"></i>Créer un cours</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </aside>
+                <section class="col-lg-9 col-xl-10">
+                    {% block content %}{% endblock %}
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 py-5">
+        <div class="container">
+            <div class="row gy-4 align-items-start">
+                <div class="col-md-4">
+                    <h6 class="text-uppercase fw-semibold mb-3">Routinet</h6>
+                    <p class="mb-3 small opacity-75">Plateforme E‑Learning moderne pour étudiants, enseignants et administrateurs.</p>
+                    <div class="d-flex gap-3 fs-5">
+                        <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-uppercase fw-semibold mb-3">Liens</h6>
+                    <ul class="list-unstyled small mb-0">
+                        <li class="mb-2"><a class="text-white text-decoration-none" href="{% url 'e_learning:contact' %}">Contact</a></li>
+                        <li class="mb-2"><a class="text-white text-decoration-none" href="{% url 'e_learning:index' %}#offres">Nos Offres</a></li>
+                        <li class="mb-2"><a class="text-white text-decoration-none" href="{% url 'e_learning:cours_list' %}">Cours</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-uppercase fw-semibold mb-3">Équipe de développement</h6>
+                    <ul class="list-unstyled small mb-0">
+                        <li class="mb-2"><a class="text-white text-decoration-none" href="mailto:hachem.haddaji@supcom.tn">hachem.haddaji@supcom.tn</a></li>
+                        <li class="mb-2"><a class="text-white text-decoration-none" href="mailto:iyed.rachdi@supcom.tn">iyed.rachdi@supcom.tn</a></li>
+                        <li class="mb-2"><a class="text-white text-decoration-none" href="mailto:malek.mallouli@supcom.tn">malek.mallouli@supcom.tn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="small mb-0">&copy; 2025 Routinet. Tous droits réservés.</p>
+                <div class="small opacity-75">Made with <i class="fas fa-heart text-danger"></i> for learning.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Prevent language selector from capturing clicks when user dropdown is open
+      (function() {
+        const langForm = document.getElementById('language-form');
+        const userToggle = document.getElementById('userDropdown');
+        if (langForm && userToggle) {
+          const dropdown = userToggle.closest('.dropdown');
+          if (dropdown) {
+            dropdown.addEventListener('show.bs.dropdown', function(){
+              langForm.classList.add('pe-none');
+            });
+            dropdown.addEventListener('hide.bs.dropdown', function(){
+              langForm.classList.remove('pe-none');
+            });
+          }
+        }
+      })();
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

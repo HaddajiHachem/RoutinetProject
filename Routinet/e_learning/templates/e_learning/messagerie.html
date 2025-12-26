@@ -1,0 +1,103 @@
+{% extends 'e_learning/base.html' %}
+
+{% block title %}Messagerie - Routinet{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4"><i class="fas fa-envelope"></i> Messagerie</h1>
+    
+    <div class="row">
+        <!-- Formulaire de nouveau message -->
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="fas fa-edit"></i> Nouveau message</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="row g-3">
+                        {% csrf_token %}
+                        <div class="col-md-4">
+                            <label class="form-label" for="id_destinataire">Destinataire</label>
+                            {{ form.destinataire }}
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label" for="id_contenu">Message</label>
+                            {{ form.contenu }}
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Envoyer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages reçus -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-inbox"></i> Messages reçus</h5>
+                </div>
+                <div class="card-body">
+                    {% if messages_recus %}
+                        <div class="list-group">
+                            {% for message in messages_recus %}
+                                <div class="list-group-item {% if not message.lu %}list-group-item-primary{% endif %}">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">
+                                            <i class="fas fa-user"></i> {{ message.expediteur.get_full_name|default:message.expediteur.username }}
+                                        </h6>
+                                        <small class="text-muted">{{ message.date_envoi|timesince }} ago</small>
+                                    </div>
+                                    <p class="mb-1">{{ message.contenu|truncatewords:20 }}</p>
+                                    {% if not message.lu %}
+                                        <span class="badge bg-primary">Nouveau</span>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-inbox fa-3x mb-3"></i>
+                            <p>Aucun message reçu</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Messages envoyés -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-paper-plane"></i> Messages envoyés</h5>
+                </div>
+                <div class="card-body">
+                    {% if messages_envoyes %}
+                        <div class="list-group">
+                            {% for message in messages_envoyes %}
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">
+                                            <i class="fas fa-user"></i> À: {{ message.destinataire.get_full_name|default:message.destinataire.username }}
+                                        </h6>
+                                        <small class="text-muted">{{ message.date_envoi|timesince }} ago</small>
+                                    </div>
+                                    <p class="mb-1">{{ message.contenu|truncatewords:20 }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-paper-plane fa-3x mb-3"></i>
+                            <p>Aucun message envoyé</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

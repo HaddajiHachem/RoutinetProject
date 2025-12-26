@@ -1,0 +1,253 @@
+{% extends 'e_learning/base.html' %} {% load i18n %} {% block title %}{% trans
+"Accueil" %} - Routinet{% endblock %} {% block content %} {% load i18n %}
+<!-- Hero Section -->
+<section class="hero-section py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">
+          {% trans "Bienvenue sur Routinet" %}
+        </h1>
+        <p class="lead mb-4">
+          {% trans "Votre plateforme d'apprentissage en ligne. Apprenez à votre
+          rythme, où que vous soyez." %}
+        </p>
+        {% if not user.is_authenticated %}
+        <div class="d-flex gap-3">
+          <a
+            href="{% url 'comptes:inscription' %}"
+            class="btn btn-light btn-lg"
+          >
+            <i class="fas fa-user-plus"></i> {% trans "Commencer" %}
+          </a>
+          <a
+            href="{% url 'e_learning:cours_list' %}"
+            class="btn btn-outline-light btn-lg"
+          >
+            <i class="fas fa-book"></i> {% trans "Explorer les cours" %}
+          </a>
+        </div>
+        {% else %}
+        <div class="d-flex gap-3">
+          <a
+            href="{% url 'e_learning:mes_cours' %}"
+            class="btn btn-light btn-lg"
+          >
+            <i class="fas fa-book-reader"></i> {% trans "Mes cours" %}
+          </a>
+          <a
+            href="{% url 'e_learning:cours_list' %}"
+            class="btn btn-outline-light btn-lg"
+          >
+            <i class="fas fa-search"></i> {% trans "Découvrir" %}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-6 text-center">
+        <i class="fas fa-graduation-cap display-1"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col">
+        <h2 class="fw-bold">Pourquoi choisir Routinet ?</h2>
+        <p class="lead text-muted">Une plateforme conçue pour votre réussite</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm card-accent">
+          <div class="card-body text-center p-4">
+            <i class="fas fa-laptop-code fa-3x text-primary mb-3"></i>
+            <h5 class="card-title">Apprentissage flexible</h5>
+            <p class="card-text text-muted">
+              Apprenez où vous voulez, quand vous voulez, à votre propre rythme.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm card-accent">
+          <div class="card-body text-center p-4">
+            <i class="fas fa-users fa-3x text-success mb-3"></i>
+            <h5 class="card-title">Communauté active</h5>
+            <p class="card-text text-muted">
+              Échangez avec vos enseignants et collègues via notre système de
+              messagerie.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm card-accent">
+          <div class="card-body text-center p-4">
+            <i class="fas fa-tasks fa-3x text-warning mb-3"></i>
+            <h5 class="card-title">Évaluations complètes</h5>
+            <p class="card-text text-muted">
+              Soumettez vos devoirs et recevez des feedbacks détaillés de vos
+              enseignants.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cours Populaires -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold">Cours populaires</h2>
+      <a
+        href="{% url 'e_learning:cours_list' %}"
+        class="btn btn-outline-primary"
+      >
+        Voir tous les cours <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    {% if cours_publies %}
+    <div class="row">
+      {% for cours in cours_publies %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm card-accent course-card">
+          {% if cours.image %}
+          <img
+            src="{{ cours.image.url }}"
+            class="card-img-top"
+            alt="{{ cours.titre }}"
+            style="height: 200px; object-fit: cover"
+          />
+          {% else %}
+          <div
+            class="card-img-top bg-primary d-flex align-items-center justify-content-center course-thumb"
+            style="height: 200px"
+          >
+            <i class="fas fa-book fa-4x text-white"></i>
+          </div>
+          {% endif %}
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ cours.titre }}</h5>
+            <p class="card-text text-muted flex-grow-1">
+              {{ cours.description|truncatewords:15 }}
+            </p>
+
+            <div class="mb-3">
+              <small class="text-muted d-block">
+                <i class="fas fa-user"></i> {{
+                cours.enseignant.get_full_name|default:cours.enseignant.username
+                }}
+              </small>
+              <small class="text-muted d-block">
+                <i class="fas fa-users"></i> {{ cours.nb_etudiants }} étudiant{{
+                cours.nb_etudiants|pluralize:"s" }}
+              </small>
+            </div>
+
+            <a
+              href="{% url 'e_learning:cours_detail' cours.pk %}"
+              class="btn btn-primary w-100"
+            >
+              Voir le cours
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <i class="fas fa-book-open fa-4x text-muted mb-3"></i>
+      <h4 class="text-muted">Aucun cours disponible</h4>
+      <p class="text-muted">Les cours seront bientôt publiés.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Mes Cours (si connecté) -->
+{% if user.is_authenticated and mes_cours %}
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold">Mes cours</h2>
+      <a
+        href="{% url 'e_learning:mes_cours' %}"
+        class="btn btn-outline-primary"
+      >
+        Voir tous mes cours <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="row">
+      {% for cours in mes_cours %}
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 shadow-sm card-accent">
+          {% if cours.image %}
+          <img
+            src="{{ cours.image.url }}"
+            class="card-img-top"
+            alt="{{ cours.titre }}"
+            style="height: 150px; object-fit: cover"
+          />
+          {% else %}
+          <div
+            class="card-img-top bg-primary d-flex align-items-center justify-content-center"
+            style="height: 150px"
+          >
+            <i class="fas fa-book fa-3x text-white"></i>
+          </div>
+          {% endif %}
+
+          <div class="card-body">
+            <h6 class="card-title">{{ cours.titre|truncatewords:5 }}</h6>
+            <a
+              href="{% url 'e_learning:cours_detail' cours.pk %}"
+              class="btn btn-sm btn-outline-primary w-100"
+            >
+              Continuer
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Stats Section -->
+<section class="py-5 text-white stats-section">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4 stats-item">
+        <i class="fas fa-book fa-3x mb-3"></i>
+        <h3 class="fw-bold">{{ cours_publies_count }}+</h3>
+        <p>Cours disponibles</p>
+      </div>
+      <div class="col-md-4 mb-4 stats-item">
+        <i class="fas fa-users fa-3x mb-3"></i>
+        <h3 class="fw-bold">{{ etudiant_count }}+</h3>
+        <p>
+          {% blocktrans count count=etudiant_count %}Étudiant{% plural %}Étudiants{% endblocktrans %}
+        </p>
+      </div>
+      <div class="col-md-4 mb-4 stats-item">
+        <i class="fas fa-chalkboard-teacher fa-3x mb-3"></i>
+        <h3 class="fw-bold">{{ enseignant_count }}+</h3>
+        <p>
+          {% blocktrans count count=enseignant_count %}Enseignant{% plural %}Enseignants{% endblocktrans %}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

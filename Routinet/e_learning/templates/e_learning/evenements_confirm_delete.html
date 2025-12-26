@@ -1,0 +1,41 @@
+{% extends 'e_learning/base.html' %}
+{% block title %}Supprimer l'évènement - Routinet{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card border-danger shadow-sm">
+        <div class="card-header bg-danger text-white">
+          <h4 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Confirmer la suppression</h4>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-warning">
+            <strong>Attention:</strong> Cette action est irréversible.
+          </div>
+
+          <p>Voulez-vous vraiment supprimer l'évènement suivant ?</p>
+          <ul>
+            <li><strong>Cours:</strong> {{ evenement.cours.titre }}</li>
+            <li><strong>Titre:</strong> {{ evenement.titre }}</li>
+            <li><strong>Type:</strong> {{ evenement.get_type_display }}</li>
+            <li><strong>Période:</strong> {{ evenement.date_debut|date:"d/m/Y H:i" }} → {{ evenement.date_fin|date:"d/m/Y H:i" }}</li>
+            <li><strong>Lieu:</strong> {{ evenement.lieu|default:'-' }}</li>
+          </ul>
+
+          <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'e_learning:evenements_admin' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Annuler
+              </a>
+              <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Supprimer définitivement
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

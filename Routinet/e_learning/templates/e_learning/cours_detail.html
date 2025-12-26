@@ -1,0 +1,150 @@
+{% extends 'e_learning/base.html' %} {% block title %}{{ cours.titre }} -
+Routinet{% endblock %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card shadow-sm mb-4 card-accent">
+        {% if cours.fichier %}
+        <div
+          class="card-img-top bg-light d-flex align-items-center justify-content-center"
+          style="min-height: 200px"
+        >
+          <div class="text-center">
+            <i class="fas fa-file fa-3x text-primary mb-2"></i>
+            <p class="text-muted">
+              <a href="{{ cours.fichier.url }}" class="btn btn-sm btn-primary"
+                ><i class="fas fa-download"></i> Télécharger le fichier</a
+              >
+            </p>
+          </div>
+        </div>
+        {% endif %}
+        <div class="card-body">
+          <h1 class="h3 fw-bold mb-2">{{ cours.titre }}</h1>
+          <div class="text-muted mb-3">
+            <i class="fas fa-user"></i> {{ cours.enseignant.get_full_name }} ({{ cours.enseignant.username }})
+            • <i class="fas fa-list"></i> {{ cours.nombre_modules }} module{{ cours.nombre_modules|pluralize:"s" }}
+          </div>
+          <p class="lead">{{ cours.description }}</p>
+        </div>
+      </div>
+
+      {% if peut_voir_contenu %}
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="fw-bold mb-3">
+            <i class="fas fa-layer-group"></i> Modules
+          </h5>
+          {% if modules %}
+          <div class="list-group">
+            {% for m in modules %}
+            <div class="list-group-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="fw-semibold">{{ m.titre }}</div>
+                  <small class="text-muted"
+                    >{{ m.description|default:"" }}</small
+                  >
+                </div>
+                <span class="badge bg-light text-dark"
+                  >{{ m.ressources.count }} ressources</span
+                >
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="text-muted">Aucun module pour le moment.</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="fw-bold mb-3"><i class="fas fa-bolt"></i> Actions</h5>
+          {% if est_enseignant %}
+          <a
+            href="{% url 'e_learning:cours_update' cours.pk %}"
+            class="btn btn-primary w-100 mb-2"
+            ><i class="fas fa-pen"></i> Modifier</a
+          >
+          <a
+            href="{% url 'e_learning:cours_delete' cours.pk %}"
+            class="btn btn-outline-danger w-100"
+            ><i class="fas fa-trash"></i> Supprimer</a
+          >
+          <hr />
+          <a
+            href="{% url 'e_learning:module_create' cours_pk=cours.pk %}"
+            class="btn btn-outline-primary w-100"
+            ><i class="fas fa-plus"></i> Ajouter un module</a
+          >
+          <a
+            href="{% url 'e_learning:devoir_create' cours_pk=cours.pk %}"
+            class="btn btn-outline-secondary w-100 mt-2"
+            ><i class="fas fa-tasks"></i> Ajouter un devoir</a
+          >
+          {% else %} {% if est_inscrit %}
+          <form
+            method="post"
+            action="{% url 'e_learning:desinscription_cours' cours.pk %}"
+          >
+            {% csrf_token %}
+            <button
+              class="btn btn-outline-danger w-100"
+              onclick="return confirm('Se désinscrire du cours ?')"
+            >
+              <i class="fas fa-sign-out-alt"></i> Se désinscrire
+            </button>
+          </form>
+          {% else %} {% if cours.statut == 'publie' %}
+          <form
+            method="post"
+            action="{% url 'e_learning:inscription_cours' cours.pk %}"
+          >
+            {% csrf_token %}
+            <button class="btn btn-primary w-100">
+              <i class="fas fa-plus-circle"></i> S'inscrire
+            </button>
+          </form>
+          {% endif %} {% endif %} {% endif %}
+        </div>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            {% load static %} {% if cours.enseignant.profile.photo_profil %}
+            <img
+              src="{{ cours.enseignant.profile.photo_profil.url }}"
+              class="rounded-circle me-3"
+              width="48"
+              height="48"
+              style="object-fit: cover"
+              alt="Avatar"
+            />
+            {% else %}
+            <img
+              src="{% static 'e_learning/img/avatar-default.svg' %}"
+              class="rounded-circle me-3"
+              width="48"
+              height="48"
+              alt="Avatar"
+            />
+            {% endif %}
+            <div>
+              <div class="fw-semibold">
+                {{ cours.enseignant.get_full_name|default:cours.enseignant.username }}
+              </div>
+              <small class="text-muted">Enseignant</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

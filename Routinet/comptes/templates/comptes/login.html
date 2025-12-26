@@ -1,0 +1,60 @@
+{% extends 'e_learning/base.html' %}
+
+{% block title %}Connexion - Routinet{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg mt-5">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-sign-in-alt fa-3x text-primary mb-3"></i>
+                        <h2>Connexion</h2>
+                        <p class="text-muted">Connectez-vous à votre compte</p>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">
+                                <i class="fas fa-user"></i> Nom d'utilisateur
+                            </label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="text-danger small">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.password.id_for_label }}" class="form-label">
+                                <i class="fas fa-lock"></i> Mot de passe
+                            </label>
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                                <div class="text-danger small">{{ form.password.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt"></i> Se connecter
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="mb-0">Pas encore de compte ?</p>
+                        <a href="{% url 'comptes:inscription' %}" class="btn btn-outline-primary mt-2">
+                            <i class="fas fa-user-plus"></i> Créer un compte
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

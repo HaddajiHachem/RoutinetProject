@@ -1,0 +1,194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Routinet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-13 00:00+0000\n"
+"PO-Revision-Date: 2025-11-13 14:35+0100\n"
+"Last-Translator: Auto <auto@example.com>\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Poedit 3.8\n"
+
+msgid "Accueil"
+msgstr "الصفحة الرئيسية"
+
+msgid "Cours"
+msgstr "الدورات"
+
+msgid "Nos Offres"
+msgstr "عروضنا"
+
+msgid "Contact"
+msgstr "اتصل بنا"
+
+msgid "Mes Cours"
+msgstr "دوراتي"
+
+msgid "Mes Devoirs"
+msgstr "واجباتي"
+
+msgid "Évènements"
+msgstr "الفعاليات"
+
+msgid "Bienvenue sur Routinet"
+msgstr "مرحبًا بكم في روتينت"
+
+msgid "Votre plateforme d'apprentissage en ligne. Apprenez à votre rythme, où que vous soyez."
+msgstr "منصتكم للتعلم عبر الإنترنت. تعلّموا وفق وتيرتكم أينما كنتم."
+
+msgid "Commencer"
+msgstr "ابدأ الآن"
+
+msgid "Explorer les cours"
+msgstr "استكشف الدورات"
+
+msgid "Découvrir"
+msgstr "اكتشف"
+
+msgid "Contactez-nous"
+msgstr "اتصل بنا"
+
+msgid "Une question, une suggestion ? Envoyez-nous un message."
+msgstr "هل لديك سؤال أو اقتراح؟ أرسل لنا رسالة."
+
+msgid "Nom et prénom"
+msgstr "الاسم الكامل"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Sujet"
+msgstr "الموضوع"
+
+msgid "Message"
+msgstr "الرسالة"
+
+msgid "Votre message..."
+msgstr "اكتب رسالتك..."
+
+msgid "Envoyer"
+msgstr "إرسال"
+
+msgid "Les cours auxquels vous êtes inscrit"
+msgstr "الدورات المسجل بها"
+
+msgid "Accéder au cours"
+msgstr "الدخول إلى الدورة"
+
+msgid "Inscrit"
+msgstr "مسجّل"
+
+msgid "Voulez-vous vraiment vous désinscrire ?"
+msgstr "هل تريد إلغاء التسجيل بالفعل؟"
+
+msgid "Se désinscrire"
+msgstr "إلغاء التسجيل"
+
+msgid "Aucun cours"
+msgstr "لا توجد دورات"
+
+msgid "Vous n'êtes inscrit à aucun cours pour le moment"
+msgstr "لست مسجلًا في أي دورة حاليًا"
+
+msgid "Mes devoirs"
+msgstr "واجباتي"
+
+msgid "Enseignant"
+msgstr "معلّم"
+
+msgid "Étudiant"
+msgstr "طالب"
+
+msgid "Cours:"
+msgstr "الدورة:"
+
+msgid "Module:"
+msgstr "الوحدة:"
+
+msgid "Date limite dépassée:"
+msgstr "انتهى الموعد النهائي:"
+
+msgid "Date limite:"
+msgstr "الموعد النهائي:"
+
+msgid "Soumis"
+msgstr "مُقدَّم"
+
+msgid "Soumettre"
+msgstr "إرسال"
+
+msgid "Voir dans le cours"
+msgstr "عرض داخل الدورة"
+
+msgid "Aucun devoir à afficher"
+msgstr "لا توجد واجبات للعرض"
+
+msgid "Mes cours (Enseignant)"
+msgstr "دوراتي (معلّم)"
+
+msgid "Nouveau cours"
+msgstr "دورة جديدة"
+
+msgid "Créé le"
+msgstr "أُنشئ في"
+
+msgid "Voir"
+msgstr "عرض"
+
+msgid "Modifier"
+msgstr "تعديل"
+
+msgid "Supprimer"
+msgstr "حذف"
+
+msgid "Vous n'avez pas encore de cours."
+msgstr "لا توجد لديك دورات بعد."
+
+msgid "Créer un cours"
+msgstr "أنشئ دورة"
+
+msgid "Inscription"
+msgstr "تسجيل"
+
+msgid "Nom d'utilisateur"
+msgstr "اسم المستخدم"
+
+msgid "Prénom"
+msgstr "الاسم"
+
+msgid "Nom"
+msgstr "اللقب"
+
+msgid "Je suis"
+msgstr "أنا"
+
+msgid "Administrateur"
+msgstr "مدير"
+
+msgid "Code d'authentification (enseignant/administrateur)"
+msgstr "رمز التحقق (معلّم/مدير)"
+
+msgid "Mot de passe"
+msgstr "كلمة المرور"
+
+msgid "Confirmer mot de passe"
+msgstr "تأكيد كلمة المرور"
+
+msgid "J'accepte les conditions d'utilisation"
+msgstr "أوافق على شروط الاستخدام"
+
+msgid "S'inscrire"
+msgstr "إنشاء حساب"
+
+msgid "Inscrivez-vous avec"
+msgstr "سجّل بواسطة"
+
+msgid "Vous avez déjà un compte?"
+msgstr "هل لديك حساب بالفعل؟"
+
+msgid "Se connecter"
+msgstr "تسجيل الدخول"

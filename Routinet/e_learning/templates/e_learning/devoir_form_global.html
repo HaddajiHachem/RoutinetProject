@@ -1,0 +1,51 @@
+{% extends 'e_learning/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Créer un devoir" %} - Routinet{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="mb-4"><i class="fas fa-tasks me-2"></i>{% trans "Créer un devoir" %}</h2>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="mb-3">
+              {{ form.cours.label_tag }}{{ form.cours }}
+            </div>
+            <div class="mb-3">
+              {{ form.titre.label_tag }}{{ form.titre }}
+            </div>
+            <div class="mb-3">
+              {{ form.description.label_tag }}{{ form.description }}
+            </div>
+            <div class="mb-3">
+              {{ form.module.label_tag }}{{ form.module }}
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                {{ form.date_limite.label_tag }}{{ form.date_limite }}
+              </div>
+              <div class="col-md-6">
+                {{ form.note_max.label_tag }}{{ form.note_max }}
+              </div>
+            </div>
+            <div class="mb-3 mt-3">
+              {{ form.fichier_devoir.label_tag }}{{ form.fichier_devoir }}
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> {% trans "Enregistrer" %}
+              </button>
+              <a href="{% url 'e_learning:mes_devoirs' %}" class="btn btn-outline-secondary">{% trans "Annuler" %}</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
